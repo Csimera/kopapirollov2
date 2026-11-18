@@ -5,7 +5,6 @@
 const ujJatekGomb=document.getElementById("ujjatek");
 const jatekTer=document.getElementsByClassName("jatekter");
 
-console.log(jatekTer)
 ujJatekGomb.addEventListener("click", megjelenit);
 
 function megjelenit(){
@@ -37,9 +36,35 @@ function megjelenit(){
     
 }
 
-function kivalaszt(){
+function kivalaszt(event){
   const kep=document.querySelector("#jatekos img")
-  console.log(kep)
-  console.log(event.target.id)
-  kep.src="kepek/ko.png"
+  kep.src=`kepek/${event.target.id}.png`
+  gepvalasztasa(event.target.id)
+}
+
+const TIPPLISTA = ["ko", "papir", "ollo"]
+function gepvalasztasa(jValasztasa) {
+  //megkell fogni a gép képét
+  //generálunk egy véletlen számot - majd véletlen számnak megfelelően kiválasztunk vlmit
+
+  const kep = document.querySelector("#gep img")
+  let veletlen = Math.floor(Math.random()*3)
+  let gepTipp = 
+  console.log(jValasztasa)
+  ellenorzes(veletlen,jValasztasa)
+}
+
+function ellenorzes(veletlen, jValasztasa) {
+  //Össze kell hasoníltani a gép és a játékos választását
+  //A gép választása véletlen
+  let gep = "ollo"
+  let szoveg = "A gép nyert"
+  const kiiras = document.getElementById("gyoztes")
+  if (veletlen == 0) gep = "ko"
+  if (veletlen == 2) gep = "papir"
+  if (jValasztasa == gep) szoveg = "Döntetlen"
+  if (jValasztasa == "ko" && gep == "ollo") szoveg = "Játékos nyert"
+  if (jValasztasa == "papir" && gep == "ko") szoveg = "Játékos nyert"
+  if (jValasztasa == "ollo" && gep == "papir") szoveg = "Játékos nyert"
+  kiiras.innerHTML=szoveg
 }
